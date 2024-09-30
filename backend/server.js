@@ -8,6 +8,8 @@ const cors = require('cors');
 
 const userRouter = require('./routes/userRoutes');
 const authRouter = require('./routes/authRoutes');
+const workoutRouter = require('./routes/workoutRoutes');
+const mesoRouter = require('./routes/mesoRoutes');
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use(cors());
 
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
+app.use('/workout', workoutRouter);
+app.use('/mesocycle', mesoRouter);
 
 const PORT = process.env.PORT || 3001;
 
