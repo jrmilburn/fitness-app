@@ -6,6 +6,7 @@ import { AuthProvider } from './context/Authcontext';
 import PrivateRoute from './context/PrivateRoute';
 import HomePage from './pages/HomePage';
 import CurrentWorkout from './pages/CurrentWorkout';
+import MesoCycles from './pages/MesoCycles';
 
 function App() {
   const router = createBrowserRouter(
@@ -21,6 +22,7 @@ function App() {
           <Route path="/app" element={<AppLayout />}>
             {/* Nested route for the homepage under /app */}
             <Route index element={<CurrentWorkout />} />
+            <Route path="/app/mesocycles" element={<MesoCycles />} />
           </Route>
         </Route>
       </>

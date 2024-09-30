@@ -13,7 +13,7 @@ export default function Navbar() {
   }
 
   return (
-    <div className="h-full w-64 bg-gray-800 text-white flex flex-col items-center p-4">
+    <div className="h-full w-full bg-gray-800 text-white flex flex-col items-center p-4">
       {/* Logo */}
       <div className="mb-8">
         <img src="/logo.png" alt="Company Logo" className="w-24 h-24" />
@@ -24,7 +24,7 @@ export default function Navbar() {
 
         <div className='flex flex-col space-y-4'>
           <NavLink
-            to="/app/workout"
+            to="/app"
             className={({ isActive }) =>
               isActive ? 'bg-gray-700 text-white py-2 px-4 rounded' : 'text-gray-200 hover:bg-gray-700 hover:text-white py-2 px-4 rounded'
             }
@@ -32,7 +32,7 @@ export default function Navbar() {
             Current Workout
           </NavLink>
           <NavLink
-            to="/app/programs"
+            to="/app/mesocycles"
             className={({ isActive }) =>
               isActive ? 'bg-gray-700 text-white py-2 px-4 rounded' : 'text-gray-200 hover:bg-gray-700 hover:text-white py-2 px-4 rounded'
             }
@@ -40,7 +40,7 @@ export default function Navbar() {
             Programs
           </NavLink>
           <NavLink
-            to="/app/programs/create"
+            to="/app/mesocycles/create"
             className={({ isActive }) =>
               isActive ? 'bg-gray-700 text-white py-2 px-4 rounded' : 'text-gray-200 hover:bg-gray-700 hover:text-white py-2 px-4 rounded'
             }

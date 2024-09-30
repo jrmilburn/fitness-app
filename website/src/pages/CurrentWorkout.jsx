@@ -1,10 +1,11 @@
 import Excercise from "../components/excercise/Excercise";
+import WorkoutHeader from "../components/WorkoutHeader/WorkoutHeader";
 
 export default function CurrentWorkout() {
 
     return (
-        <div className="flex flex-col items-center">
-            <h1 className="text-3xl font-bold my-8">Current Workout</h1>
+        <div className="flex flex-col items-center space-y-4 max-w-2xl mx-auto">
+            <WorkoutHeader />
             <Excercise />
         </div>
     )

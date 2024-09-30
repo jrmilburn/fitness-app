@@ -16,7 +16,7 @@ export default function Set() {
         <input
           type="text"
           placeholder="Weight"
-          className="w-[50%] mt-2 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-[50%] mt-2 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           onFocus={() => setFocusedInput('weight')} // Set state when weight input is focused
           onBlur={() => setFocusedInput('')} // Reset state when input loses focus
         />
@@ -25,7 +25,7 @@ export default function Set() {
         <input
           type="text"
           placeholder="Reps"
-          className="w-[50%] mt-2 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-[50%] mt-2 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           onFocus={() => setFocusedInput('reps')} // Set state when reps input is focused
           onBlur={() => setFocusedInput('')} // Reset state when input loses focus
         />
@@ -33,8 +33,8 @@ export default function Set() {
         {/* Custom Checkbox */}
         <button
           onClick={handleSubmit}
-          className={`w-8 h-8 mt-2 rounded-lg border-2 ${
-            isChecked ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
+          className={`w-8 h-8 rounded-sm border-2 ${
+            isChecked ? 'bg-green-500 border-blue-500' : 'border-gray-300'
           } flex items-center justify-center transition-all duration-300`}
         >
           {isChecked && (

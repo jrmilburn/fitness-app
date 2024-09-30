@@ -5,7 +5,7 @@ export default function Layout() {
   return (
     <div className="flex h-screen">
       {/* Navbar on the left */}
-      <div className="w-64">
+      <div className="w-80">
         <Navbar />
       </div>
 
