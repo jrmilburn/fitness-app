@@ -6,8 +6,8 @@ const mesoController = require("../controllers/mesoController");
 const mesoRouter = Router();
 const weekRouter = require("./weekRoutes");
 
-mesoRouter.get("/", passport.authenticate('jwt', { session: false }), mesoController.getMeso);
-mesoRouter.post("/", passport.authenticate('jwt', { session: false }), mesoController.createMeso);
+mesoRouter.get("/", mesoController.getMeso);
+mesoRouter.post("/", mesoController.createMeso);
 
 mesoRouter.use('/:programId', weekRouter);
 
