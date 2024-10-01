@@ -7,6 +7,7 @@ import PrivateRoute from './context/PrivateRoute';
 import HomePage from './pages/HomePage';
 import CurrentWorkout from './pages/CurrentWorkout';
 import MesoCycles from './pages/MesoCycles';
+import CreateProgram from './pages/CreateProgram';
 
 function App() {
   const router = createBrowserRouter(
@@ -23,6 +24,7 @@ function App() {
             {/* Nested route for the homepage under /app */}
             <Route index element={<CurrentWorkout />} />
             <Route path="/app/mesocycles" element={<MesoCycles />} />
+            <Route path="/app/mesocycles/create" element={<CreateProgram />} />
           </Route>
         </Route>
       </>
