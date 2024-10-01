@@ -22,7 +22,7 @@ async function createMeso(req, res) {
 
     const userId = req.user.id;
 
-    const { name, length } = req.body;
+    const { name, length, days } = req.body;
 
     try {
 
@@ -30,6 +30,7 @@ async function createMeso(req, res) {
             data: {
                 name: name,
                 length: length,
+                days: days,
                 userId: userId
             }
         })
