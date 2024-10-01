@@ -1,12 +1,27 @@
-export default function MuscleGroups({ visible, onClose }) {
+import { useState, useEffect } from 'react';
 
-    if (!visible) return null;
+export default function MuscleGroups({ visible, onClose, onAdd }) {
   
+    const [muscleGroups, setMuscleGroups] = useState([]);
+
     const handleOverlayClick = (e) => {
       if (e.target === e.currentTarget) {
         onClose();
       }
     };
+
+    useEffect(() => {
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/musclegroups`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => setMuscleGroups(data))
+    }, []);
+
+    if (!visible) return null;
   
     return (
       <>
@@ -20,7 +35,11 @@ export default function MuscleGroups({ visible, onClose }) {
             {/* Modal Content */}
             <div className="bg-white p-6 rounded shadow-lg w-[90%] max-w-md relative z-10">
               <h2 className="text-xl mb-4">Muscle Groups</h2>
-              <p>This is where all the muscle groups will go</p>
+              {muscleGroups.map((muscleGroup) => (
+                <div key={muscleGroup.id} className="flex items-center justify-between border-b py-2">
+                  <button onClick={() => onAdd(muscleGroup)}>{muscleGroup.name}</button>
+                </div>
+              ))}
   
               <button onClick={onClose} className="mt-4 p-2 bg-blue-500 text-white rounded">
                 Close
