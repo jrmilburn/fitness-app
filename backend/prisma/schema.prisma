@@ -8,77 +8,87 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(cuid())
-  email            String    @unique
-  username         String    @unique
-  firstName        String?
-  lastName         String?
-  password         String
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  firstName String?
+  lastName  String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   // Many-to-many relation for all programs (past and current)
-  programs         Program[] @relation("UserPrograms")
+  programs Program[] @relation("UserPrograms")
 
   // One-to-one relation for the current program
-  currentProgramId String?   // Nullable because not every user may have a current program
-  currentProgram   Program?  @relation("CurrentProgram", fields: [currentProgramId], references: [id])
+  currentProgramId String? // Nullable because not every user may have a current program
+  currentProgram   Program? @relation("CurrentProgram", fields: [currentProgramId], references: [id])
 }
 
 model Program {
-  id         String    @id @default(cuid())
-  name       String
-  length     Int
-  days       Int
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  length    Int
+  days      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Many-to-many relation for all users (users using this program)
-  users      User[]    @relation("UserPrograms")
-  
+  users User[] @relation("UserPrograms")
+
   // One-to-one relation for the current program of a user
-  currentUsers User[]  @relation("CurrentProgram")
-  
-  Week       Week[]
+  currentUsers User[] @relation("CurrentProgram")
+
+  Week Week[]
 }
 
 model Week {
-  id         String   @id @default(cuid())
+  id         String    @id @default(cuid())
   programId  String
   weekNumber Int
-  Workout    Workout[] 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  
-  Program    Program  @relation(fields: [programId], references: [id])
+  Workout    Workout[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  Program Program @relation(fields: [programId], references: [id])
 }
 
 model Workout {
-  id         String   @id @default(cuid())
-  weekId     String
-  Week       Week     @relation(fields: [weekId], references: [id])
-  name       String
-  Excercise  Excercise[]
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String      @id @default(cuid())
+  weekId    String
+  Week      Week        @relation(fields: [weekId], references: [id])
+  name      String
+  Excercise Excercise[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 model Excercise {
-  id         String   @id @default(cuid())
-  workoutId  String
-  Workout    Workout  @relation(fields: [workoutId], references: [id])
-  name       String
-  sets       Set[]
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id            String      @id @default(cuid())
+  workoutId     String? // Optional: exercises can exist without being linked to a workout
+  Workout       Workout?    @relation(fields: [workoutId], references: [id])
+  name          String
+  muscleGroupId String // Foreign key linking to the MuscleGroup
+  MuscleGroup   MuscleGroup @relation(fields: [muscleGroupId], references: [id])
+  sets          Set[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model MuscleGroup {
+  id         String      @id @default(cuid())
+  name       String      @unique
+  excercises Excercise[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 }
 
 model Set {
-  id         String   @id @default(cuid())
+  id          String    @id @default(cuid())
   excerciseId String
   Excercise   Excercise @relation(fields: [excerciseId], references: [id])
   weight      Int
   reps        Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }

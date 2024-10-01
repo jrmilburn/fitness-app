@@ -10,6 +10,8 @@ const userRouter = require('./routes/userRoutes');
 const authRouter = require('./routes/authRoutes');
 const workoutRouter = require('./routes/workoutRoutes');
 const mesoRouter = require('./routes/mesoRoutes');
+const musclegroupsRouter = require('./routes/musclegroupRoutes');
+const excercisesRouter = require('./routes/excerciseRoutes');
 
 const app = express();
 
@@ -23,6 +25,8 @@ app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/workout', workoutRouter);
 app.use('/mesocycle', mesoRouter);
+app.use('/musclegroups', musclegroupsRouter);
+app.use('/excercises', excercisesRouter);
 
 const PORT = process.env.PORT || 3001;
 
