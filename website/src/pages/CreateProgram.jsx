@@ -3,12 +3,27 @@ import React, { useState } from 'react';
 import ProgramLength from '../components/CreateProgram/ProgramLength';
 import ProgramExcercises from '../components/CreateProgram/ProgramExcercises';
 
+import { AuthContext } from '../context/Authcontext';
+import { useContext } from 'react';
+
 export default function CreateProgram() {
   const [formPage, setFormPage] = useState(1);
+    const { currentUser } = useContext(AuthContext);
+
+    const [program, setProgram] = useState({
+        name: "",
+        length: 0,
+        days: 0,
+        weeks: [] // Initialize weeks as an empty array
+      });
 
   const onNext = () => {
     setFormPage((prevPage) => prevPage + 1);
   };
+
+  const handleSetProgram = (program) => {
+    setProgram(program);
+  }
 
   return (
     <div
@@ -19,8 +34,10 @@ export default function CreateProgram() {
       <div
         className={`bg-gray-200 transition-all duration-300 ease-in-out ${formPage === 2 ? 'h-[100%]' : 'h-[70%]'} w-full overflow-x-hidden flex`}
       >
-        {formPage === 1 ? <ProgramLength onNext={onNext} /> : formPage === 2 ? <ProgramExcercises /> : null}
+        {formPage === 1 ? <ProgramLength onNext={onNext} currentUser={currentUser} setProgram={handleSetProgram} /> : formPage === 2 ? <ProgramExcercises program={program} setProgram={handleSetProgram} /> : null}
       </div>
+
+
     </div>
   );
 }

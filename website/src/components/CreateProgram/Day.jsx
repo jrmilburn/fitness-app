@@ -21,6 +21,7 @@ export default function Day({day}) {
                 {muscleGroups.map((muscleGroup, index) => (
                     <Excercise key={index} muscle={muscleGroup.name} excercise={'Bench'}/>
                 ))}
+            
             </div>
             <button className="bg-gray-200 p-2" onClick={() => setMuscleGroupsShown(true)}>Add Muscle Group +</button>
 
