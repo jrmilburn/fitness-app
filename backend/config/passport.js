@@ -1,28 +1,29 @@
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
+const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
+const { prisma } = require('./prisma');
+const passport = require('passport');
+require("dotenv").config();
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.JWT_SECRET
 }
 
-module.exports = (passport) => {
-    passport.use(
-        new JwtStrategy(opts, async (payload, done) => {
-            try {
-                const user = await prisma.user.findUnique({
-                    where: {
-                        id: payload.id
-                    }
-                })
-                if (user) {
-                    return done(null, user)
-                }
+passport.use(
+    new JwtStrategy(opts, async (jwt_payload, done) => {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {id: jwt_payload.id}
+            });
 
-                return done(null, false)
-            } catch(error) {
-                return done(error, false)
+            if(!user) {
+                return done(null, false);
             }
-        })
-    )
-}
+
+            return done(null, user);
+        } catch(error) {
+            return done(error, false);
+        }
+    })
+);
+
+module.exports = {passport};

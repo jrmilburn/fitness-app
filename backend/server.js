@@ -1,4 +1,4 @@
-const passport = require('passport');
+const { passport } = require('./config/passport');
 
 require("dotenv").config();
 
@@ -18,7 +18,6 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(passport.initialize());
-require('./config/passport')(passport);
 app.use(cors());
 
 app.use('/user', userRouter);
