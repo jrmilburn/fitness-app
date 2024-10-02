@@ -2,13 +2,14 @@ import { useState } from "react"
 import Excercise from "./Excercise"
 import MuscleGroups from "./MuscleGroups"
 
-export default function Day({day}) {
+export default function Day({day, setProgram}) {
 
     const [muscleGroupsShown, setMuscleGroupsShown] = useState(false);
     const [muscleGroups, setMuscleGroups] = useState([]);
 
     const addMuscleGroup = (muscleGroup) => {
         setMuscleGroups([...muscleGroups, muscleGroup]);
+        console.log(muscleGroup);
         setMuscleGroupsShown(false);
     }
 
@@ -19,7 +20,7 @@ export default function Day({day}) {
             <div className="flex flex-col space-y-4">
 
                 {muscleGroups.map((muscleGroup, index) => (
-                    <Excercise key={index} muscle={muscleGroup.name} excercise={'Bench'}/>
+                    <Excercise key={index} excerciseindex={index} muscle={muscleGroup.name} excercise={'Bench'} setProgram={setProgram} day={day}/>
                 ))}
             
             </div>

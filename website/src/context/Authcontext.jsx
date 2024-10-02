@@ -1,12 +1,11 @@
 import { createContext, useState, useEffect } from 'react';
-import React from 'react';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [authError, setAuthError] = useState(null);
+  const [authError, setAuthError] = useState(null); // Add error handling
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -21,9 +20,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    setLoading(true);
-    setAuthError(null);
-
+    setLoading(true); // Set loading true before login request
+    setAuthError(null); // Clear any previous errors
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
         method: 'POST',
@@ -35,19 +33,19 @@ export const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const user = await response.json();
-        setCurrentUser(user);
+        console.log('USER: ', user);
         localStorage.setItem('user', JSON.stringify(user));
-        return true; // Login was successful
+        setCurrentUser(user);
       } else {
+        // Handle authentication errors
         const errorData = await response.json();
         setAuthError(errorData.message || 'Login failed');
-        return false; // Login failed
       }
     } catch (error) {
-      setAuthError(error.message);
-      return false; // Login failed
+      console.error('Login error:', error);
+      setAuthError('An error occurred. Please try again later.');
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading false after login request
     }
   };
 

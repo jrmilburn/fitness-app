@@ -21,9 +21,9 @@ export default function LoginPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(formData.email, formData.password);
+    await login(formData.email, formData.password);
     navigate("/app");
 }
 
