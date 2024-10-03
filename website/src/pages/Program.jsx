@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react'; 
-import Day from '../components/CreateProgram/Day';
+import ViewDay from '../components/ViewProgram/ViewDay';
 
 export default function Program() {
 
@@ -48,7 +48,7 @@ export default function Program() {
                         <div className="flex space-x-4 w-full p-4 mr-8">
                 
                             {program[0].Week[0].Workout.map((day, index) => (
-                                <Day key={index} day={day.name} setProgram={setProgram} />
+                                <ViewDay key={index} day={day.name} excercises={day.Excercise}/>
                             ))}
                         </div>
                          <button type='button' onClick={handleCopy} className='absolute bottom-0 right-0 bg-blue-500 rounded p-2 text-white translate-x-[-50%] translate-y-[-100%]'>Use This Meso</button>

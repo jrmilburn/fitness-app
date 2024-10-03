@@ -34,7 +34,7 @@ export default function CreateProgram() {
       <div
         className={`bg-gray-200 transition-all duration-300 ease-in-out ${formPage === 2 ? 'h-[100%]' : 'h-[70%]'} w-full overflow-x-hidden flex`}
       >
-        {formPage === 1 ? <ProgramLength onNext={onNext} currentUser={currentUser} setProgram={handleSetProgram} /> : formPage === 2 ? <ProgramExcercises program={program} setProgram={handleSetProgram} currentUser={currentUser.token} /> : null}
+        {formPage === 1 ? <ProgramLength onNext={onNext} currentUser={currentUser} setProgram={handleSetProgram} /> : formPage === 2 ? <ProgramExcercises program={program} setProgram={handleSetProgram} currentUser={currentUser.token} create={true}/> : null}
       </div>
 
 

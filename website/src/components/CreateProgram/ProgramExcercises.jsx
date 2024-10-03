@@ -52,7 +52,7 @@ export default function ProgramExcercises({ program, setProgram, currentUser}) {
                             <div className="flex space-x-4 w-full p-4 mr-8">
                     
                                 {program.weeks[0].workouts.map((day, index) => (
-                                    <Day key={index} day={day.name} setProgram={setProgram} />
+                                    <Day key={index} day={day.name} setProgram={setProgram} create={true}/>
                                 ))}
                             </div>
                              <button type='button' onClick={handleCreate} className='absolute bottom-0 right-0 bg-blue-500 rounded p-2 text-white translate-x-[-50%] translate-y-[50%]'>Create Meso</button>
