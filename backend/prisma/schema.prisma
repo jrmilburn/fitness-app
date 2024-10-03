@@ -63,6 +63,8 @@ model Workout {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
+  completed Boolean @default(false)
+
   @@unique([weekId, name])
 }
 

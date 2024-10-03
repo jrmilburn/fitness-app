@@ -147,6 +147,15 @@ async function createMeso(req, res) {
           }
         }
       }
+
+      await prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          currentProgramId: createdProgram.id,
+        }
+      })
     
       res.status(200).json({ message: 'Program saved successfully' });
     } catch (error) {
