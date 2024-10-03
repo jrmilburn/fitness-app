@@ -57,6 +57,7 @@ export default function CurrentWorkout() {
             {workout.Excercise.map((excercise, index) => (
                 <Excercise key={index} excercise={excercise} />
             ))}
+            <CompleteWorkout workout={workout} />
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function SelectWorkout({ currentUser, handleClick }) {
+export default function SelectWorkout({ currentUser, handleClick, completed }) {
     const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -49,7 +49,7 @@ export default function SelectWorkout({ currentUser, handleClick }) {
                         <h1 className="text-3xl font-bold mb-2">Week {week.weekNumber}</h1>
                         <div className="flex flex-col space-y-2">
                             {week.Workout.map((workout, index) => (
-                                <div key={index} className="text-center p-2 bg-gray-100 m-2  hover:scale-105 transition duration-300">
+                                <div key={index} className={`text-center p-2 ${completed ? 'bg-green-100' : 'bg-gray-100'} m-2  hover:scale-105 transition duration-300`}>
                                     <button className="text-md font-semibold w-full h-full" onClick={() => handleClick(workout.id)} >Day {index + 1}</button>
                                 </div>
                             ))}
