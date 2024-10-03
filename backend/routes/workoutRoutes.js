@@ -8,4 +8,6 @@ const workoutRouter = Router();
 workoutRouter.get('/:workoutid', workoutController.getWorkout);
 workoutRouter.get('/', passport.authenticate('jwt', {session: false}), workoutController.getWorkouts);
 
+workoutRouter.put('/', passport.authenticate('jwt', {session: false}), workoutController.completeWorkout);
+
 module.exports = workoutRouter;

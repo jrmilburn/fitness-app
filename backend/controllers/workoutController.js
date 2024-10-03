@@ -59,7 +59,11 @@ async function getWorkouts(req, res) {
                     },
                     },
             }
-          }});
+          },
+          orderBy: {
+            name: 'asc'
+          }
+        });
 
 
 
@@ -74,7 +78,33 @@ async function getWorkouts(req, res) {
 
 }
 
+async function completeWorkout(req, res) {
+
+    const userId = req.user.id;
+    const { workoutId } = req.body;
+
+    try {
+
+        const completedWorkout = await prisma.workout.update({
+            where: {
+                id: workoutId
+            },
+            data: {
+                completed: true
+            }
+        })
+
+        res.json(completeWorkout);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+
+}
+
 module.exports = {
     getWorkout,
-    getWorkouts
+    getWorkouts,
+    completeWorkout
 }
