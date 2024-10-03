@@ -1,6 +1,7 @@
 import Excercise from "../components/excercise/Excercise";
 import WorkoutHeader from "../components/WorkoutHeader/WorkoutHeader";
 import SelectWorkout from "../components/SelectWorkout/SelectWorkout";
+import CompleteWorkout from "../components/CompleteWorkout/CompleteWorkout";
 import { AuthContext } from "../context/Authcontext";
 import { useContext } from "react";
 import { useState, useEffect } from 'react';

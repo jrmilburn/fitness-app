@@ -1,7 +1,12 @@
-export default function CompleteWorkout() {
+import { AuthContext } from "../../context/Authcontext"
+import { useContext } from "react"
 
-    const handleFinishWorkout = async ({ workout }) => {
-        const repsonse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/workout`, {
+export default function CompleteWorkout({ workout }) {
+
+    const { currentUser } = useContext(AuthContext);
+
+    const handleFinishWorkout = async () => {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/workout`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -12,6 +17,11 @@ export default function CompleteWorkout() {
                 completed: true
             })
         })
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+        }
     }
 
     return (
