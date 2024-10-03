@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function Set() {
+export default function Set({ setId }) {
   const [isChecked, setIsChecked] = useState(false);
   const [focusedInput, setFocusedInput] = useState(''); // State to track which input is focused
 
