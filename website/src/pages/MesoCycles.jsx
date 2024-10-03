@@ -6,7 +6,28 @@ import { useContext } from "react"
 
 export default function MesoCycles() {
 
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, setCurrentUser } = useContext(AuthContext);
+    const [programs, setPrograms] = useState([]);
+
+    const handleSetCurrentProgram = async (programid) => {
+
+        setCurrentUser({
+            ...currentUser,
+            user: {
+              ...currentUser.user, 
+              programId: programid, 
+            }});
+
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${currentUser.token}`
+            },
+            body: JSON.stringify({ programId: programid })
+        });
+
+    }
 
     useEffect(() => {
 
@@ -18,10 +39,10 @@ export default function MesoCycles() {
             },
         })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => setPrograms(data))
         .catch(error => console.error(error))
 
-    })
+    }, [currentUser.user, currentUser.token]);
 
     return (
 
@@ -29,9 +50,10 @@ export default function MesoCycles() {
             <div className="w-[95%] mx-auto rounded-md p-4 text-2xl">
                 <h1>Mesocycles</h1>
             </div>
-            <Mesocycle />
-            <Mesocycle />
-            <Mesocycle />
+
+            {programs.map((program, index) => (
+                <Mesocycle key={index} program={program} currentUser={currentUser} handleSetCurrentProgram={handleSetCurrentProgram} />
+            ))}
         </div>
 
 
