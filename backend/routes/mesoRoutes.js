@@ -6,9 +6,9 @@ const mesoController = require("../controllers/mesoController");
 const mesoRouter = Router();
 const weekRouter = require("./weekRoutes");
 
-mesoRouter.get("/", passport.authenticate('jwt', {session: false}), mesoController.getMeso);
+mesoRouter.get("/", passport.authenticate('jwt', {session: false}), mesoController.getMesos);
 mesoRouter.post("/", passport.authenticate('jwt', {session: false}),mesoController.createMeso);
 
-mesoRouter.use('/:programId', weekRouter);
+mesoRouter.get('/:programId', mesoController.getMeso);
 
 module.exports = mesoRouter;

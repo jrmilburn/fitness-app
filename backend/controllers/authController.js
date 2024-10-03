@@ -61,6 +61,7 @@ const login = async (req, res) => {
         const payload = {
             id: user.id,
             username: user.username,
+            programId: user.currentProgramId
         };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, {

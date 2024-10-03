@@ -2,16 +2,12 @@ const { prisma } = require('../config/prisma');
 
 async function getMeso(req, res) {
 
-    const userId = req.user.id;
+    const { programId } = req.params;
 
     try {
         const meso = await prisma.program.findMany({
             where: {
-              users: {
-                some: {
-                  id: userId, 
-                },
-              },
+                id: programId
             },
             include: {
                 Week: {
@@ -165,7 +161,35 @@ async function createMeso(req, res) {
 
 }
 
+async function getMesos(req, res) {
+
+    const userId = req.user.id;
+
+    try {
+        const mesos = await prisma.program.findMany({
+          where: {
+            users: {
+              some: {
+                id: userId, 
+              },
+            },
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
+        });
+
+        res.json(mesos);
+{}
+    } catch (error) {
+        console.error(error);
+        return { message: 'Internal server error' };
+    }
+
+}
+
 module.exports = {
     getMeso,
-    createMeso
+    createMeso,
+    getMesos
 }
