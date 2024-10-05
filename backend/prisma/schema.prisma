@@ -75,6 +75,7 @@ model Excercise {
   name          String
   muscleGroupId String // Foreign key linking to the MuscleGroup
   MuscleGroup   MuscleGroup @relation(fields: [muscleGroupId], references: [id])
+  setCount      Int?
   sets          Set[]
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt

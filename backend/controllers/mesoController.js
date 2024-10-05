@@ -44,6 +44,7 @@ async function createMeso(req, res) {
             // Directly add the sets to the existing excercise object
             workout.excercises[index] = {
                 ...excercise,
+                setCount: 2,
                 sets: [
                     { reps: 0, weight: 0 },
                     { reps: 0, weight: 0 }
