@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function SelectWorkout({ currentUser, handleClick, completed }) {
+export default function SelectWorkout({ currentUser, handleClick }) {
     const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -40,23 +40,28 @@ export default function SelectWorkout({ currentUser, handleClick, completed }) {
     }
 
     return (
-        <div className="flex flex-col items-center space-y-8 w-full mx-auto my-[25%] bg-gray-200">
-            {/* Single container for all weeks and workouts */}
-            <div className="flex justify-around w-full border-t-2 border-r-2 border-b-2 border-gray-400">
-                {workouts[0].Week.map((week, index) => (
-                    <div key={index} className="flex flex-col items-center border-solid border-l-2 border-gray-400 w-full p-4">
-                        {/* Display week number without individual div borders */}
-                        <h1 className="text-3xl font-bold mb-2">Week {week.weekNumber}</h1>
-                        <div className="flex flex-col space-y-2">
-                            {week.Workout.map((workout, index) => (
-                                <div key={index} className={`text-center p-2 ${completed ? 'bg-green-100' : 'bg-gray-100'} m-2  hover:scale-105 transition duration-300`}>
-                                    <button className="text-md font-semibold w-full h-full" onClick={() => handleClick(workout.id)} >Day {index + 1}</button>
-                                </div>
-                            ))}
-                        </div>
+    <div className="flex flex-col items-center space-y-8 w-full mx-auto my-[25%] bg-gray-200">
+        {/* Single container for all weeks and workouts */}
+        <div className="flex justify-around w-full border-t-2 border-r-2 border-b-2 border-gray-400">
+            {workouts[0].Week.map((week, index) => (
+                <div key={index} className="flex flex-col items-center border-solid border-l-2 border-gray-400 w-full p-4">
+                    {/* Display week number without individual div borders */}
+                    <h1 className="text-3xl font-bold mb-2">Week {week.weekNumber}</h1>
+                    <div className="flex flex-col space-y-2">
+                        {/* Sort workouts by day number before mapping */}
+                        {week.Workout.sort((a, b) => {
+                            const dayA = parseInt(a.name.replace(/\D/g, ''), 10); // Extract day number from name
+                            const dayB = parseInt(b.name.replace(/\D/g, ''), 10); // Extract day number from name
+                            return dayA - dayB;
+                        }).map((workout, index) => (
+                            <div key={index} className={`text-center p-2 ${workout.completed ? 'bg-green-100' : 'bg-gray-100'} m-2  hover:scale-105 transition duration-300`}>
+                                <button className="text-md font-semibold w-full h-full" onClick={() => handleClick(workout.id)}>{workout.name}</button>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
         </div>
+    </div>
     );
 }

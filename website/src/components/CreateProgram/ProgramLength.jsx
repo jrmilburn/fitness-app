@@ -30,7 +30,7 @@ export default function ProgramLength({ onNext, currentUser, setProgram }) {
       // Loop to create workouts (days) based on programDays
       for (let j = 0; j < programDays; j++) {
         const workout = {
-          name: `Workout Day ${j + 1}`, // Name the workouts based on day
+          name: `Day ${j + 1}`, // Name the workouts based on day
           excercises: [] // You can populate exercises here later
         };
   

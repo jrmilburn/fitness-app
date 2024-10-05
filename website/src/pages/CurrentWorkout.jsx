@@ -51,6 +51,28 @@ export default function CurrentWorkout() {
         );
     }
 
+    const handleFinishWorkout = async (workout) => {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/workout`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${currentUser.token}`
+            },
+            body: JSON.stringify({
+                workoutId: workout.id,
+                completed: true,
+            }),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+        }
+
+        setWorkout();
+        setSelectWorkout();
+    }
+
     return (
         <div className="flex flex-col items-center space-y-4 max-w-2xl mx-auto">
             {/* Pass the week number to WorkoutHeader or display it wherever you need */}
@@ -58,7 +80,7 @@ export default function CurrentWorkout() {
             {workout.Excercise.map((excercise, index) => (
                 <Excercise key={index} excercise={excercise} />
             ))}
-            <CompleteWorkout workout={workout} />
+            <CompleteWorkout workout={workout} handleClick={handleFinishWorkout}/>
         </div>
     );
 }
